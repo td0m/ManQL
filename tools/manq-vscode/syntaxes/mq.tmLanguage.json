@@ -1,0 +1,94 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "manql",
+  "patterns": [
+    {
+      "include": "#decorators"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#sets"
+    },
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#code_strings"
+    },
+    {
+      "include": "#range"
+    },
+    {
+      "include": "#regex"
+    }
+  ],
+  "repository": {
+    "decorators": {
+      "patterns": [
+        {
+          "name": "keyword.mq",
+          "match": "\\@[a-z][a-z_0-9]*"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "storage.modifier.mq",
+          "match": "\\b(pub)\\b"
+        }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.mq",
+          "match": "//.*"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.mq",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.mq",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "sets": {
+      "patterns": [
+        {
+          "name": "entity.name.mq",
+          "match": "[a-z][a-z_0-9]*"
+        }
+      ]
+    },
+    "range": {
+      "name": "string.quoted.single.mq",
+      "begin": "'",
+      "end": "'",
+      "patterns": []
+    },
+    "code_strings": {
+      "name": "string.quoted.single.mq",
+      "begin": "`",
+      "end": "`",
+      "patterns": []
+    },
+    "regex": {
+      "name": "constant.regexp",
+      "begin": "/",
+      "end": "/",
+      "patterns": []
+    }
+  },
+  "scopeName": "source.mq"
+}

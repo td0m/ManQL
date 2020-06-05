@@ -1,0 +1,34 @@
+{
+  "name": "manql",
+  "displayName": "ManQL",
+  "description": "MAN pages Query Language",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.45.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "mq",
+        "aliases": [
+          "manql",
+          "mq"
+        ],
+        "extensions": [
+          ".mq"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "mq",
+        "scopeName": "source.mq",
+        "path": "./syntaxes/mq.tmLanguage.json"
+      }
+    ]
+  }
+}
