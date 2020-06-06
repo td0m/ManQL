@@ -62,9 +62,7 @@ Set(
   identifier: "user",
   values: [
     SetValue::Text("root"),
-    SetValue::Code([
-      Text("grep wheel /etc/group | cut -d':' -f4")
-    ])
+    SetValue::Code("grep wheel /etc/group | cut -d':' -f4")
   ]
 )
 ```
@@ -193,4 +191,9 @@ ip_v6 = { "::1", public_ip_v6 }
 ip = {ip_v4, ip_v6}
 ```
 
-So we just need to add `SetReference` to the `SetValue` enum.
+So we just need to add `SubsetOf` to the `SetValue` enum.
+
+#### Same type used multiple times in 1 snippet
+
+TODO: give `ssh -J` example
+TODO: explain why it's not possible and how to bypass that
