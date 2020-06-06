@@ -22,28 +22,9 @@
     },
     {
       "include": "#range"
-    },
-    {
-      "include": "#regex"
     }
   ],
   "repository": {
-    "decorators": {
-      "patterns": [
-        {
-          "name": "keyword.mq",
-          "match": "\\@[a-z][a-z_0-9]*"
-        }
-      ]
-    },
-    "keywords": {
-      "patterns": [
-        {
-          "name": "storage.modifier.mq",
-          "match": "\\b(pub)\\b"
-        }
-      ]
-    },
     "comments": {
       "patterns": [
         {
@@ -81,12 +62,6 @@
       "name": "string.quoted.single.mq",
       "begin": "`",
       "end": "`",
-      "patterns": []
-    },
-    "regex": {
-      "name": "constant.regexp",
-      "begin": "/",
-      "end": "/",
       "patterns": []
     }
   },
