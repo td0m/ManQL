@@ -31,7 +31,7 @@ fn main() {
         ],
         snippets: vec![
             Snippet {
-                description: String::from("remote connect to user"),
+                description: String::from("connect to remote server"),
                 values: vec![SnippetValue {
                     decorators: vec![],
                     tokens: vec![
@@ -43,7 +43,7 @@ fn main() {
                 }],
             },
             Snippet {
-                description: String::from("ssh and run command"),
+                description: String::from("connect to remote server and run command"),
                 values: vec![SnippetValue {
                     decorators: vec![],
                     tokens: vec![

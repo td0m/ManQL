@@ -9,8 +9,6 @@ const DEFAULT_ARGS: &'static [&str] = &[
     "--preview-window",
     "top:1",
     "--reverse",
-    "--bind",
-    "ctrl-space:print-query",
     "--border",
     "-e",
     "-i",
@@ -62,10 +60,12 @@ impl Frontend for FZF {
             Token::Reference(name) => {
                 let mut p = Command::new("fzf")
                     .args(DEFAULT_ARGS.iter().chain(&[
+                        "--bind",
+                        "alt-enter:print-query",
                         "--preview",
                         &self.preview(tokens, i),
                         "--prompt",
-                        &format!("<{}>", name),
+                        &format!("<{}> ", name),
                     ]))
                     .stdin(Stdio::piped())
                     .stdout(Stdio::piped())
