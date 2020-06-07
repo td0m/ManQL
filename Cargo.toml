@@ -1,5 +1,5 @@
 [package]
-name = "man_ql"
+name = "manql"
 version = "0.1.0"
 authors = ["Dominik Tarnowski <dom@tdom.dev>"]
 edition = "2018"
