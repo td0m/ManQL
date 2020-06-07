@@ -2,6 +2,29 @@
 
 Man pages Query Language.
 
+## What is this?
+
+Do you ever find yourself searching through man pages for a common use of a command?
+No. I didn't think so either. You probably just search the solution on Google.
+The only reason you might be using man pages is for detail argument information.
+
+But searching for answers on Google isn't efficient. The process looks like this:
+ * open a browser
+ * open a new tab
+ * search for a solution to your common bash problem
+ * open a stack overflow post
+ * copy the command
+ * paste it into your terminal and replace it with your custom values.
+
+What if you never had to leave the terminal? That's what ManQ aims to do.
+ * Provides a fast searching UI to search for solutions/snippets
+ * Gives you samples of valid values each field can take
+ * Saves your values so you can reuse the snippet faster next time.
+
+And much more, but enough talking. Here's a demo:
+
+TODO: GIF
+
 ## Install
 
 ### Via package manager (coming soon)
