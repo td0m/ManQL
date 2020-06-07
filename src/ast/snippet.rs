@@ -1,6 +1,6 @@
 use std::fmt;
 
-#[derive(Default, Debug)]
+#[derive(Default, Debug, Clone)]
 pub struct Snippet {
     pub description: String,
     pub values: Vec<SnippetValue>,
@@ -18,13 +18,13 @@ impl fmt::Display for Snippet {
     }
 }
 
-#[derive(Default, Debug)]
+#[derive(Default, Debug, Clone)]
 pub struct SnippetValue {
     pub decorators: Vec<ValueDecorator>,
     pub tokens: Vec<Token>,
 }
 
-#[derive(Default, Debug)]
+#[derive(Default, Debug, Clone)]
 pub struct ValueDecorator {
     pub name: String,
     pub values: Vec<String>,
@@ -36,12 +36,11 @@ pub enum Token {
     Reference(String),
 }
 
-
 impl fmt::Display for Token {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Token::Reference(r) => write!(f, "{{{{{}}}}}", r),
-            Token::Text(s) => write!(f, "{}", s)
+            Token::Text(s) => write!(f, "{}", s),
         }
     }
 }

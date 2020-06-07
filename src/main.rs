@@ -1,6 +1,8 @@
 mod ast;
 mod interpreter;
 
+extern crate serde_json;
+
 use ast::{Scope, Set, SetValue, Snippet, SnippetValue, Token};
 use interpreter::frontends::FZF;
 use interpreter::Interpreter;
@@ -31,18 +33,6 @@ fn main() {
         ],
         snippets: vec![
             Snippet {
-                description: String::from("connect to remote server"),
-                values: vec![SnippetValue {
-                    decorators: vec![],
-                    tokens: vec![
-                        Token::Text(String::from("ssh ")),
-                        Token::Reference(String::from("user")),
-                        Token::Text(String::from("@")),
-                        Token::Reference(String::from("host")),
-                    ],
-                }],
-            },
-            Snippet {
                 description: String::from("connect to remote server and run command"),
                 values: vec![SnippetValue {
                     decorators: vec![],
@@ -56,8 +46,20 @@ fn main() {
                     ],
                 }],
             },
+            Snippet {
+                description: String::from("connect to remote server"),
+                values: vec![SnippetValue {
+                    decorators: vec![],
+                    tokens: vec![
+                        Token::Text(String::from("ssh ")),
+                        Token::Reference(String::from("user")),
+                        Token::Text(String::from("@")),
+                        Token::Reference(String::from("host")),
+                    ],
+                }],
+            },
         ],
     };
-    let program = Interpreter::new(&scope, FZF::new());
+    let mut program = Interpreter::new(&scope, FZF::new());
     program.run();
 }
