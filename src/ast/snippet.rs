@@ -11,10 +11,7 @@ impl fmt::Display for Snippet {
         let mut out = String::from("");
         for value in &self.values {
             for token in &value.tokens {
-                match token {
-                    Token::Text(s) => out.push_str(&s),
-                    Token::Reference(s) => out.push_str(&format!("{{{{{}}}}}", &s)),
-                }
+                out.push_str(&format!("{}", token));
             }
         }
         write!(f, "{}", out)
@@ -33,8 +30,18 @@ pub struct ValueDecorator {
     pub values: Vec<String>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Token {
     Text(String),
     Reference(String),
+}
+
+
+impl fmt::Display for Token {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Token::Reference(r) => write!(f, "{{{{{}}}}}", r),
+            Token::Text(s) => write!(f, "{}", s)
+        }
+    }
 }
