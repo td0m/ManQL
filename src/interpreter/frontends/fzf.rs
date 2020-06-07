@@ -7,9 +7,11 @@ use std::{
 
 const DEFAULT_ARGS: &'static [&str] = &[
     "--preview-window",
-    "bottom:1",
+    "top:1",
+    "--reverse",
     "--bind",
     "ctrl-space:print-query",
+    "--border",
     "-e",
     "-i",
 ];
@@ -31,6 +33,7 @@ impl Frontend for FZF {
             .unwrap();
         let stdin = p.stdin.as_mut().unwrap();
 
+        // TODO: change that to vec and .join it later
         let mut displayed = String::from("");
         for snippet in snippets {
             // TODO: actually get the 1st executable value
@@ -52,8 +55,36 @@ impl Frontend for FZF {
 
         panic!()
     }
-    fn select_set_value(&self, tokens: &Vec<Token>, set: &Vec<String>) -> String {
-        String::from("fak")
+    fn select_set_value(&self, tokens: &Vec<Token>, i: usize, set: &Vec<String>) -> String {
+        let token = tokens.get(i).unwrap();
+        match token {
+            Token::Text(_) => panic!("Expected reference, given text"),
+            Token::Reference(name) => {
+                let mut p = Command::new("fzf")
+                    .args(DEFAULT_ARGS.iter().chain(&[
+                        "--preview",
+                        &self.preview(tokens, i),
+                        "--prompt",
+                        &format!("<{}>", name),
+                    ]))
+                    .stdin(Stdio::piped())
+                    .stdout(Stdio::piped())
+                    .spawn()
+                    .unwrap();
+                let stdin = p.stdin.as_mut().unwrap();
+
+                let mut displayed: Vec<String> = vec![];
+                for option in set {
+                    displayed.push(String::from(option));
+                }
+                stdin.write(displayed.join("\n").as_bytes()).unwrap();
+
+                let o = p.wait_with_output().unwrap();
+                let output_str = std::str::from_utf8(&o.stdout).unwrap().trim_end();
+
+                String::from(output_str)
+            }
+        }
     }
 }
 
@@ -71,5 +102,25 @@ impl FZF {
             }
         }
         size + 2 // we need at least 1 padding, otherwise widest column will no be displayed properly
+    }
+
+    fn preview(&self, tokens: &Vec<Token>, i: usize) -> String {
+        let mut preview = String::from("echo \"");
+        for (j, token) in tokens.iter().enumerate() {
+            if i == j {
+                preview.push_str("$(tput setaf 4){}$(tput sgr 0)");
+            } else {
+                let mut v = format!("{}", token);
+                if let Token::Reference(r) = token {
+                    if j < i {
+                        v = String::from(r);
+                    }
+                }
+                v = v.replace("\"", "\\\"");
+                preview.push_str(&v);
+            }
+        }
+        preview.push('"');
+        preview
     }
 }

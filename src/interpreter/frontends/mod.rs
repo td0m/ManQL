@@ -9,5 +9,5 @@ pub trait Frontend {
     fn select_snippet<'a>(&self, snippets: &'a Vec<Snippet>) -> &'a Snippet;
     // takes an array of tokens (for displaying the command live) and set with valid values
     // returns user input. It doesn't have to be one in the set
-    fn select_set_value(&self, tokens: &Vec<Token>, set: &Vec<String>) -> String;
+    fn select_set_value(&self, tokens: &Vec<Token>, i: usize, set: &Vec<String>) -> String;
 }
