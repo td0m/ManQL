@@ -1,7 +1,11 @@
 mod ast;
 mod interpreter;
+mod parser;
 
 extern crate serde_json;
+#[macro_use]
+extern crate pest_derive;
+
 
 use ast::{Scope, Set, SetValue, Snippet, SnippetValue, Token};
 use interpreter::frontends::FZF;

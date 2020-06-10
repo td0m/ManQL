@@ -1,0 +1,9 @@
+// comment
+comment = { (!NEWLINE ~ ANY)* }
+comment_line = _{ "//" ~ WHITE_SPACE* ~ comment ~ NEWLINE }
+
+
+// combined
+expression = _{ comment_line }
+line = _{ WHITE_SPACE* ~ expression ~ NEWLINE? }
+file = _{ SOI~ line+ ~ EOI }
