@@ -1,0 +1,32 @@
+
+identifier = { ('a'..'z')~('a'..'z' | "_" | '0'..'9')+ }
+
+OR = _{ WHITE_SPACE* ~ "|" ~ WHITE_SPACE* }
+EQ = _{ WHITE_SPACE* ~ "=" ~ WHITE_SPACE* }
+
+string_double = { (!"\"" ~ ANY)* }
+string_double_block = _{ "\"" ~ string_double ~ "\"" }
+
+code = { (!"`" ~ ANY)* }
+code_block = _{ "`" ~ code ~ "`" }
+
+value = _{
+    identifier
+    | string_double_block
+    | code_block
+}
+
+values = _{
+    value
+    ~ (OR ~ value)*
+}
+
+set = {
+    identifier
+    ~ EQ
+    ~ values
+}
+
+expr = _{ set }
+line = _{ WHITE_SPACE* ~ expr ~ NEWLINE? }
+file = _{ SOI ~ line+ ~ EOI }
